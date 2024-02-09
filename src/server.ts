@@ -1,5 +1,5 @@
 import fastify from "fastify";
-import routes from "./routes/routes";
+import apiRoutes from "./routes/apiRoutes";
 import fastifyJwt from "@fastify/jwt";
 import { env } from './env'
 
@@ -11,6 +11,7 @@ const JWT_SECRET: string = env.JWT_SECRET;
 // Registrando o plugin @fastify/jwt com a chave secreta
 app.register(fastifyJwt, {
   secret: JWT_SECRET,
+  sign: { expiresIn: '1d' },
 });
 
 app.get("/", async () => {
@@ -18,7 +19,7 @@ app.get("/", async () => {
 });
 
 // Registrando suas rotas
-app.register(routes, { prefix: "api" });
+app.register(apiRoutes, { prefix: "api" });
 
 // Iniciando o servidor
 app.listen({ port: 3000, host: "localhost" })

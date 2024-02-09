@@ -2,7 +2,6 @@ import {
   FastifyInstance,
   FastifyRequest,
   FastifyReply,
-  preValidationHookHandler,
 } from "fastify";
 
 import { authenticate } from "../middlewares/validacao-jwt";
@@ -16,7 +15,7 @@ export default async function Routes(app: FastifyInstance) {
     // Gerar um token JWT para o usuário autenticado
     const token = app.jwt.sign({ user });
 
-    return { token };
+    reply.status(200).send({ token });
   });
 
   // Rota protegida que requer autenticação
@@ -24,7 +23,7 @@ export default async function Routes(app: FastifyInstance) {
     "/protected",
     { preValidation: authenticate },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return { message: "Esta rota é protegida." };
+      reply.status(200).send({ message: "Esta rota é protegida - JWT." });
     }
   );
 
@@ -33,7 +32,7 @@ export default async function Routes(app: FastifyInstance) {
     "/test-token",
     async (request: FastifyRequest, reply: FastifyReply) => {
       // Visualizar o token JWT extraído da solicitação
-      return { token: request.headers.authorization };
+      reply.status(200).send ({ token: request.headers.authorization });
     }
   );
 }
