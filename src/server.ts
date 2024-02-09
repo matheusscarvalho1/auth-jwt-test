@@ -1,12 +1,18 @@
 import fastify from "fastify";
 import apiRoutes from "./routes/apiRoutes";
 import fastifyJwt from "@fastify/jwt";
+import crypto from 'crypto';
+
+
+
 import { env } from './env'
 
 const app = fastify();
 
+
 // Configurando o segredo para o JWT
 const JWT_SECRET: string = env.JWT_SECRET;
+
 
 // Registrando o plugin @fastify/jwt com a chave secreta
 app.register(fastifyJwt, {

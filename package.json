@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/jwt": "^8.0.0",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.1",
     "fastify": "^4.26.0",
     "zod": "^3.22.4"
