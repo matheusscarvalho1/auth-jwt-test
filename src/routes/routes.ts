@@ -5,6 +5,8 @@ import {
   preValidationHookHandler,
 } from "fastify";
 
+import { authenticate } from "../middlewares/validacao-jwt";
+
 export default async function Routes(app: FastifyInstance) {
   // Rota de login para autenticar o usuário e gerar um token JWT
   app.post("/login", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -35,13 +37,3 @@ export default async function Routes(app: FastifyInstance) {
     }
   );
 }
-
-const authenticate: preValidationHookHandler = async (request, reply) => {
-  try {
-    // Verifique o token JWT antes de permitir o acesso à rota protegida
-    await request.jwtVerify();
-  } catch (err) {
-    // Se houver erro na verificação do token, retorne uma mensagem de erro
-    reply.code(401).send({ message: "Token JWT inválido ou ausente." });
-  }
-};
