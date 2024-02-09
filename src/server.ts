@@ -1,7 +1,7 @@
 import fastify from "fastify";
 import apiRoutes from "./routes/apiRoutes";
 import fastifyJwt from "@fastify/jwt";
-import crypto from 'crypto';
+
 
 
 
@@ -20,8 +20,8 @@ app.register(fastifyJwt, {
   sign: { expiresIn: '1d' },
 });
 
-app.get("/", async () => {
-  return "Rotas disponíveis para o teste do token: [POST]/api/login, [GET]/api/protected, [GET]/api/test-token";
+app.get("/", async (request, reply) => {
+  reply.code(200).send("Rotas disponíveis para o teste do token: [POST]/api/login, [GET]/api/protected, [GET]/api/test-token");
 });
 
 // Registrando suas rotas
@@ -34,5 +34,4 @@ app.listen({ port: 3000, host: "localhost" })
   })
   .catch(error => {
     console.error("Error starting server:", error);
-    process.exit(1);
   });
