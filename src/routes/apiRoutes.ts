@@ -1,8 +1,4 @@
-import {
-  FastifyInstance,
-  FastifyRequest,
-  FastifyReply,
-} from "fastify";
+import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 
 import { authenticate } from "../middlewares/validacao-jwt";
 
@@ -32,7 +28,7 @@ export default async function Routes(app: FastifyInstance) {
     "/test-token",
     async (request: FastifyRequest, reply: FastifyReply) => {
       // Visualizar o token JWT extraído da solicitação
-      reply.status(200).send ({ token: request.headers.authorization });
+      reply.status(200).send({ token: request.headers.authorization });
     }
   );
 }
